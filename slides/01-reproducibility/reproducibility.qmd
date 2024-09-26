@@ -1,0 +1,251 @@
+---
+title: "Open Science Practices: Reproducibility"
+subtitle: "What it is and why to practice it"
+author: "Daniela Palleschi"
+institute: "Leibniz-Zentrum Allgemeine Sprachwissenschaft"
+lang: en
+date: 2024-09-25
+date-format: "ddd MMM D, YYYY"
+format: 
+  html:
+    number-sections: true
+    number-depth: 2
+    toc: true
+    code-overflow: wrap
+    code-tools: true
+    embed-resources: true
+  pdf:
+    toc: true
+    number-sections: false
+    colorlinks: true
+    code-overflow: wrap
+  revealjs:
+    footer: "HU Phonetics"
+    output-file: reproducibility_slides.html
+    code-overflow: wrap
+    theme: [dark]
+    width: 1600
+    height: 900
+    progress: true
+    scrollable: true
+    # smaller: true
+    slide-number: c/t
+    code-link: true
+    incremental: true
+    # number-sections: true
+    toc: false
+    toc-depth: 2
+    toc-title: 'Overview'
+    navigation-mode: linear
+    controls-layout: bottom-right
+    fig-cap-location: top
+    font-size: 0.6em
+    slide-level: 4
+    embed-resources: true
+    fig-align: center
+    fig-dpi: 300
+editor_options: 
+  chunk_output_type: console
+bibliography: references.bib
+csl: ../../apa.csl
+---
+
+```{r setup, eval = T, echo = F}
+knitr::opts_chunk$set(echo = T, # print chunks?
+                      eval = T, # run chunks?
+                      error = F, # print errors?
+                      warning = F, # print warnings?
+                      message = F, # print messages?
+                      cache = F # cache?; be careful with this!
+                      )
+```
+
+```{r}
+#| echo: false
+source(here::here("functions", "print_image.R"))
+```
+
+
+```{r}
+#| echo: false
+#| eval: false
+# run manually
+rbbt::bbt_update_bib(here::here("slides", "day1", "reproducibility.qmd"))
+```
+
+# What is Open Science?
+
+> “Open science” is an umbrella term used to refer to the concepts of openness, transparency, rigor, reproducibility, replicability, and accumulation of knowledge, which are considered fundamental features of science”
+
+--- @cruwell_seven_2019, p.3
+
+- a movement developed to respond to crisis in scientific research
+  + lack of accessibility, transparency, reproducibility, and replicability of previous research
+- transparency is key to all facets of Open Science
+  + it allows for full evaluation of all stages of science
+  
+- Open Access, software, data, code, materials...
+
+## Systemic problem in science
+
+- the combination of
+  - publication bias
+    + journals favour novel, significant findings
+  - publish or perish
+    + researchers' careers depend on publications
+
+- can/does/did lead to:
+  - HARKing
+    + Hypothesising After Results are Known
+  - p-hacking
+    + (re-)running analyses until a significant effect is found
+  - replication crisis
+    + pervasive failure to replicate previous research
+  
+::: {.content-visible when-format="revealjs"}
+## Why do Open Science? {.smaller}  
+:::
+
+::: {.content-visible unless-format="revealjs"}
+## Why do Open Science?
+:::
+
+::: columns
+
+::: {.column width="60%"}
+- open science is good science
+- it encourages organisation and planning
+  + helpful for future you
+- increases *transparency*
+- makes our work more robust
+  + so future work stands on solid ground
+
+- not all-or-nothing
+- there are things I consider the bare minimum
+  + detailed experiment plan, ideally public
+  + openly available materials (e.g., stimuli)
+  + share code and data
+
+- the important thing is to do what you can
+  
+:::
+
+::: {.column width="40%"}
+```{r echo = F, fig.env = "figure", fig.align = "center", set.cap.width=T, fig.cap="Image source: @kathawalla_easing_2021 (all rights reserved)"}
+#| label: fig-kathawalla
+#| out-width: 50%
+print_image(here::here("media/Kathawalla_research_cycle.png"))
+```
+
+:::
+
+:::
+
+# What is reproducibility?
+
+-   one piece of the Open Science pie
+-   generating the same results with the same data and analysis scripts
+  -   seems obvious, but requires organisation and forethought before and during data collection/analysis
+-   bare minimum: share the code and the data [@laurinavichyute_share_2022]
+
+::: {.content-visible when-format="revealjs"}
+## Reproducibility vs. replication {.smaller}
+:::
+::: {.content-visible unless-format="revealjs"}
+## Reproducibility vs. replication
+:::
+
+- the two terms have been used interchangably in the past [e.g., in the title of @open_science_collaboration_estimating_2015]
+  + we'll define them as follows (and this is becoming the standard distinction, imo)
+
+::: columns
+
+::: {.column width="50%"}
+
+**Reproducibility**
+
+- re-analysing the same data using (ideally) the same scripts, software, etc
+- aim: produce the same results (means, model estimates, etc.)
+- why: tests for errors, coding mistakes, biases, etc.
+:::
+
+::: {.column width="50%"}
+
+**Replication**
+
+- re-running a previous experiment, ideally with the same materials, set-up, etc. 
+- ideally the same analysis workflow as the original study (i.e., like reproducing the analyses but with new data)
+- aim: test whether results are replicated with new data in terms of direction and magnitude
+
+:::
+
+:::
+
+- in short:
+  - reproducibility = re-analysis of the *same data*
+  - replication = collection of *new data*
+
+## Why implement reproducibility in my workflow?
+
+- firstly: the help future you (or collaborators/other researchers)!
+  + you may return to your analyses tomorrow, next month, or next year
+- to ensure robustness and to document your steps
+  + 'researcher degrees of freedom' and the 'garden of forking paths': there's more than one way to analyse a certain dataset
+  + we can try to plan ahead in detail (e.g., pre-reigster your analysis plan), but there will always be decisions made that were not foreseen
+- lastly: it makes your life *much* easier and streamlines your workflow
+
+## The reproducibility spectrum
+
+- reproducibility is on a continuum, referred to as the *reproducibility spectrum* in @peng_reproducible_2011 (@fig-peng_2011)
+  + *linked* means "*all data, metadata, and code [is] stored and linked with each other and with corresponding publications*" [@peng_reproducible_2011, p. 1227]
+  + *executable* is not explained, and is more difficult to guarantee long-term as it depends on software versions
+  + but at minimum we can assume it refers to code running on someone else's machine
+
+```{r}
+#| echo: false
+#| out-width: "100%"
+#| fig-align: center
+#| label: fig-peng_2011
+#| fig-cap: "Source: @peng_reproducible_2011"
+print_image(here::here("media/peng_2011_reproducibility_spectrum.png"))
+```
+
+# Steps we'll take {-}
+
+1. Open source software:
+    - R, an open source statistical programming language
+    - in RStudio, an IDE (integrated developer environment)
+    - with [R Projects](https://support.posit.co/hc/en-us/articles/200526207-Using-RStudio-Projects)
+
+2. Project-oriented workflow: 
+    - establish folder structure
+    - and file/variable naming conventions
+    - use project-relative filepaths with the `here` package
+    - establish and maintain project-relative package library with `renv` (time permitting)
+  
+::: {.content-visible when-format="revealjs"}
+# {-}
+:::
+    
+3. Practice literate programming:
+    - writing clean, commented, linear code
+    - in dynamic reports (e.g., Quarto, R markdown)
+    - practice modularity, i.e., 1 script = 1 purpose
+
+4. Sharing and checking our code
+    - uploading our code and data to an OSF repository
+    - conducting a code review
+
+# References {.unlisted .unnumbered visibility="uncounted"}
+
+---
+nocite: |
+---
+
+::: {#refs custom-style="Bibliography"}
+:::
+
+
+
+
+
